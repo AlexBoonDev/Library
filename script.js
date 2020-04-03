@@ -24,12 +24,12 @@ class UI {
             {
                 title: 'Six Easy Pieces',
                 author: 'Richard Feynman',
-                isRead: false
+                isRead: 'No'
             },
             {
                 title: 'Let My People Go Surfing',
                 author: 'Yvon Chouinard',
-                isRead: true
+                isRead: 'Yes'
             }
         ];
 
@@ -48,6 +48,9 @@ class UI {
         <td>${book.isRead}</td>
         <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
         `;
+
+
+
         list.appendChild(row);
     }
 
@@ -89,11 +92,20 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     e.preventDefault();
 
     // Get form values
+
+    if (document.querySelector('#isRead').checked){
+        document.querySelector('#isRead').value = 'Yes'
+    } else {
+        document.querySelector('#isRead').value = 'No'
+    };
+
     const title = document.querySelector('#title').value;
     const author = document.querySelector('#author').value;
-    const isRead = document.querySelector('#isRead').checked;
+    const isRead = document.querySelector('#isRead').value;
 
-
+  
+    
+    
     // Validate
 
     if(title === '' || author === ''){
@@ -125,6 +137,10 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
     UI.deleteBook(e.target);
 
     // Show Successful delete message
-    UI.showAlert('Book Removed', 'info')
+    
+    if (e.target.classList.contains('btn')){
+        UI.showAlert('Book Removed', 'info')
+    };
+    
 
 });
