@@ -24,7 +24,7 @@ class UI {
             {
                 title: 'Six Easy Pieces',
                 author: 'Richard Feynman',
-                isRead: 'No'
+                isRead: 'No',
             },
             {
                 title: 'Let My People Go Surfing',
@@ -45,7 +45,7 @@ class UI {
         row.innerHTML = `
         <td>${book.title}</td>
         <td>${book.author}</td>
-        <td>${book.isRead}</td>
+        <td><a href="#" class="btn btn-primary btn-sm isRead">${book.isRead}</a></td> 
         <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
         `;
 
@@ -76,7 +76,19 @@ class UI {
         document.querySelector('#author').value = '';
         document.querySelector('#isRead').checked = false;
     }
+
+    static changeStatus(element){
+        let status = element.textContent
+        if (status === 'Yes'){
+            status = 'No';
+            } else {
+                status = 'Yes'
+        } 
+        console.log(status)
+
+    }
 }
+
 
 
 // Event : Display Books
@@ -138,9 +150,18 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
 
     // Show Successful delete message
     
-    if (e.target.classList.contains('btn')){
+    if (e.target.classList.contains('btn-danger')){
         UI.showAlert('Book Removed', 'info')
     };
     
+
+});
+
+// Change Complete status 
+document.querySelector('#book-list').addEventListener('click', (e) => {
+    
+    if (e.target.classList.contains('isRead')){
+        UI.changeStatus(e.target);
+    }
 
 });
